@@ -1,17 +1,17 @@
 %define	name	swi-prolog
-%define	version	5.4.6
-%define rel	4
+%define	version	5.6.47
+%define rel	1
 %define	release	%mkrel %{rel}
 
 Summary:	Prolog interpreter and compiler
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-License:	GPL
+License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncurses-devel readline-devel
 URL:		http://www.swi-prolog.org/
-Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.bz2
+Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	swi-pl
 Provides:	swi-pl
@@ -31,17 +31,17 @@ make COFLAGS="%{optflags} -fno-strict-aliasing"
 make -C src check
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall
 
-rm -f $RPM_BUILD_ROOT%{_mandir}/man3/readline*
+rm -f %{buildroot}%{_mandir}/man3/readline*
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,0755)
-%doc LSM PORTING README VERSION
+%doc ANNOUNCE LSM PORTING README VERSION
 %{_bindir}/*
 %{_prefix}/lib/pl-*
 %{_mandir}/*/pl*
