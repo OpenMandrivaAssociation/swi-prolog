@@ -12,7 +12,6 @@ Group:		Development/Other
 BuildRequires:	ncurses-devel readline-devel
 URL:		http://www.swi-prolog.org/
 Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	swi-pl
 Provides:	swi-pl
 
