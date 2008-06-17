@@ -1,5 +1,5 @@
 # Package contains plugins not built by libtool: must disable
-# underlinking - AdamW 2008/06
+# underlinking prevention - AdamW 2008/06
 %define _disable_ld_no_undefined 1
 
 %define _requires_exceptions /usr/bin/../pl.sh
