@@ -1,6 +1,12 @@
+# Package contains plugins not built by libtool: must disable
+# underlinking - AdamW 2008/06
+%define _disable_ld_no_undefined 1
+
+%define _requires_exceptions /usr/bin/../pl.sh
+
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	5.6.51
+Version:	5.6.55
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Development/Other
