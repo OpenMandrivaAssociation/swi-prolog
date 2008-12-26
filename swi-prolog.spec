@@ -6,8 +6,8 @@
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	5.6.56
-Release:	%mkrel 2
+Version:	5.6.63
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncurses-devel
@@ -35,7 +35,7 @@ interface, very fast compiler.
 %package jpl
 Group:		Development/Java
 Summary:	Java interface for %{name}
-Requires:	java-icedtea
+Requires:	java >= 1.6.0
 Requires:	%{name} = %{version}-%{release}
 
 %description jpl
@@ -81,10 +81,11 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,0755)
-%doc ANNOUNCE LSM PORTING README VERSION
+%doc LSM PORTING README VERSION
 %{_bindir}/pl*
 %{_prefix}/lib/pl-*
 %{_mandir}/*/pl*
+%{_libdir}/pkgconfig/pl.pc
 %exclude %{_prefix}/lib/pl-%{version}/doc/packages/examples/jpl
 %exclude %{_prefix}/lib/pl-%{version}/doc/packages/jpl
 %exclude %{_prefix}/lib/pl-%{version}/lib/*/libjpl.so
