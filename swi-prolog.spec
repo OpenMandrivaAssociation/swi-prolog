@@ -23,6 +23,7 @@ BuildRequires:	gmp-devel
 BuildRequires:	java-rpmbuild
 URL:		http://www.swi-prolog.org/
 Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.gz
+Patch0:		pl-5.6.63-format-string.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	swi-pl
 Provides:	swi-pl
@@ -54,24 +55,26 @@ other interactive and dynamically typed languages.
 
 %prep
 %setup -n pl-%{version} -q
+%patch0 -p1 -b .format-string
 
 %build
 %{?__cputoolize: %{__cputoolize} -c src} 
-%configure2_5x
+%configure2_5x --with-world
 make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
-#make -C src check
+#make check
 pushd packages
 export PATH=$PATH:%{_builddir}/pl-%{version}/src
 %configure2_5x
-make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
+make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC" LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
+ 
 popd
 
 %install
 rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 pushd packages
-%makeinstall PLBASE=%{buildroot}%{_prefix}/lib/pl-%{version}
-make html-install PLBASE=%{buildroot}%{_prefix}/lib/pl-%{version}
+%makeinstall PLBASE=%{buildroot}%{_libdir}/pl-%{version} LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
+make html-install PLBASE=%{buildroot}%{_libdir}/pl-%{version}
 popd
 
 rm -f %{buildroot}%{_mandir}/man3/readline*
@@ -83,31 +86,31 @@ rm -rf %{buildroot}
 %defattr(-,root,root,0755)
 %doc LSM PORTING README VERSION
 %{_bindir}/pl*
-%{_prefix}/lib/pl-*
+%{_libdir}/pl-*
 %{_mandir}/*/pl*
 %{_libdir}/pkgconfig/pl.pc
-%exclude %{_prefix}/lib/pl-%{version}/doc/packages/examples/jpl
-%exclude %{_prefix}/lib/pl-%{version}/doc/packages/jpl
-%exclude %{_prefix}/lib/pl-%{version}/lib/*/libjpl.so
-%exclude %{_prefix}/lib/pl-%{version}/lib/jpl.jar
-%exclude %{_prefix}/lib/pl-%{version}/library/jpl.pl
-%exclude %{_prefix}/lib/pl-%{version}/doc/Manual/*xpce.html
-%exclude %{_prefix}/lib/pl-%{version}/xpce*
+%exclude %{_libdir}/pl-%{version}/doc/packages/examples/jpl
+%exclude %{_libdir}/pl-%{version}/doc/packages/jpl
+%exclude %{_libdir}/pl-%{version}/lib/*/libjpl.so
+%exclude %{_libdir}/pl-%{version}/lib/jpl.jar
+%exclude %{_libdir}/pl-%{version}/library/jpl.pl
+%exclude %{_libdir}/pl-%{version}/doc/Manual/*xpce.html
+%exclude %{_libdir}/pl-%{version}/xpce*
 
 
 %files jpl
 %defattr(-,root,root,0755)
 %doc packages/jpl/README.html
-%{_prefix}/lib/pl-%{version}/doc/packages/examples/jpl
-%{_prefix}/lib/pl-%{version}/doc/packages/jpl
-%{_prefix}/lib/pl-%{version}/lib/*/libjpl.so
-%{_prefix}/lib/pl-%{version}/lib/jpl.jar
-%{_prefix}/lib/pl-%{version}/library/jpl.pl
+%{_libdir}/pl-%{version}/doc/packages/examples/jpl
+%{_libdir}/pl-%{version}/doc/packages/jpl
+%{_libdir}/pl-%{version}/lib/*/libjpl.so
+%{_libdir}/pl-%{version}/lib/jpl.jar
+%{_libdir}/pl-%{version}/library/jpl.pl
 
 %files xpce
 %defattr(-,root,root,0755)
 %{_mandir}/*/xpce*
 %{_bindir}/xpce*
-%{_prefix}/lib/pl-%{version}/doc/Manual/*xpce.html
-%{_prefix}/lib/pl-%{version}/xpce*
+%{_libdir}/pl-%{version}/doc/Manual/*xpce.html
+%{_libdir}/pl-%{version}/xpce*
 
