@@ -21,6 +21,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	libncursesw-devel
 BuildRequires:	gmp-devel
 BuildRequires:	java-rpmbuild
+BuildRequires:	libuuid-devel
 URL:		http://www.swi-prolog.org/
 Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.gz
 Patch0:		pl-5.6.63-format-string.patch
