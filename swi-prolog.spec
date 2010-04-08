@@ -7,7 +7,7 @@
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
 Version:	5.8.3
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncurses-devel
