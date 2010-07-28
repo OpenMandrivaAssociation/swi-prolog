@@ -6,8 +6,8 @@
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	5.8.3
-Release:	%mkrel 3
+Version:	5.10.1
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncurses-devel
@@ -22,9 +22,8 @@ BuildRequires:	libncursesw-devel
 BuildRequires:	gmp-devel
 BuildRequires:	java-rpmbuild
 URL:		http://www.swi-prolog.org/
-Source0:	ftp://swi.psy.uva.nl/pub/SWI-Prolog/pl-%{version}.tar.gz
+Source0:	http://www.swi-prolog.org/download/stable/src/pl-%{version}.tar.gz
 Patch0:		pl-5.6.63-format-string.patch
-Patch1:		swi-prolog-5.6.64-gcc4.3.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	swi-pl
 Provides:	swi-pl
@@ -57,26 +56,24 @@ other interactive and dynamically typed languages.
 %prep
 %setup -n pl-%{version} -q
 %patch0 -p1 -b .format-string
-#patch1 -p1 -b .gcc4.3
 
 %build
 %{?__cputoolize: %{__cputoolize} -c src} 
 %configure2_5x --with-world
-make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
+%make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
 #make check
 pushd packages
 export PATH=$PATH:%{_builddir}/pl-%{version}/src
 %configure2_5x
-make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC" LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
- 
+%make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC" LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/ 
 popd
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
 pushd packages
-%makeinstall PLBASE=%{buildroot}%{_libdir}/pl-%{version} LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
-make html-install PLBASE=%{buildroot}%{_libdir}/pl-%{version}
+%makeinstall PLBASE=%{buildroot}%{_libdir}/swipl-%{version} LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
+%make html-install PLBASE=%{buildroot}%{_libdir}/swipl-%{version}
 popd
 
 rm -f %{buildroot}%{_mandir}/man3/readline*
@@ -86,33 +83,32 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,0755)
-%doc LSM PORTING README VERSION
-%{_bindir}/pl*
-%{_libdir}/pl-*
-%{_mandir}/*/pl*
-%{_libdir}/pkgconfig/pl.pc
-%exclude %{_libdir}/pl-%{version}/doc/packages/examples/jpl
-%exclude %{_libdir}/pl-%{version}/doc/packages/jpl
-%exclude %{_libdir}/pl-%{version}/lib/*/libjpl.so
-%exclude %{_libdir}/pl-%{version}/lib/jpl.jar
-%exclude %{_libdir}/pl-%{version}/library/jpl.pl
-%exclude %{_libdir}/pl-%{version}/doc/Manual/*xpce.html
-%exclude %{_libdir}/pl-%{version}/xpce*
+%doc PORTING README VERSION
+%{_bindir}/swipl*
+%{_libdir}/swipl-%{version}
+%{_mandir}/*/swipl*
+%{_libdir}/pkgconfig/swipl.pc
+%exclude %{_libdir}/swipl-%{version}/doc/packages/examples/jpl
+%exclude %{_libdir}/swipl-%{version}/doc/packages/jpl
+%exclude %{_libdir}/swipl-%{version}/lib/*/libjpl.so
+%exclude %{_libdir}/swipl-%{version}/lib/jpl.jar
+%exclude %{_libdir}/swipl-%{version}/library/jpl.pl
+%exclude %{_libdir}/swipl-%{version}/doc/Manual/*xpce.html
+%exclude %{_libdir}/swipl-%{version}/xpce*
 
 
 %files jpl
 %defattr(-,root,root,0755)
 %doc packages/jpl/README.html
-%{_libdir}/pl-%{version}/doc/packages/examples/jpl
-%{_libdir}/pl-%{version}/doc/packages/jpl
-%{_libdir}/pl-%{version}/lib/*/libjpl.so
-%{_libdir}/pl-%{version}/lib/jpl.jar
-%{_libdir}/pl-%{version}/library/jpl.pl
+%{_libdir}/swipl-%{version}/doc/packages/examples/jpl
+%{_libdir}/swipl-%{version}/doc/packages/jpl
+%{_libdir}/swipl-%{version}/lib/*/libjpl.so
+%{_libdir}/swipl-%{version}/lib/jpl.jar
+%{_libdir}/swipl-%{version}/library/jpl.pl
 
 %files xpce
 %defattr(-,root,root,0755)
 %{_mandir}/*/xpce*
 %{_bindir}/xpce*
-%{_libdir}/pl-%{version}/doc/Manual/*xpce.html
-%{_libdir}/pl-%{version}/xpce*
-
+%{_libdir}/swipl-%{version}/doc/Manual/*xpce.html
+%{_libdir}/swipl-%{version}/xpce*
