@@ -2,12 +2,12 @@
 # underlinking prevention - AdamW 2008/06
 %define _disable_ld_no_undefined 1
 
-%define _requires_exceptions /usr/bin/../pl.sh
+%define _requires_exceptions /usr/bin/../swipl.sh\\|/usr/bin/pl
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
 Version:	5.10.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncurses-devel
