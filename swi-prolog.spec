@@ -1,29 +1,30 @@
-# Package contains plugins not built by libtool: must disable
-# underlinking prevention - AdamW 2008/06
-%define _disable_ld_no_undefined 1
-
 %define _requires_exceptions /usr/bin/../swipl.sh\\|/usr/bin/pl
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	5.10.1
-Release:	%mkrel 2
+Version:	5.10.2
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Development/Other
-BuildRequires:	ncurses-devel
+BuildRequires:	ncursesw-devel
 BuildRequires:	readline-devel
 BuildRequires:	jpeg-devel
-BuildRequires:	xpm-devel
-BuildRequires:	X11-devel
-BuildRequires:	unixODBC-devel
-BuildRequires:	db4-devel
+BuildRequires:	libxpm-devel
+BuildRequires:	libx11-devel
+BuildRequires:	libxft-devel
+BuildRequires:	libxinerama-devel
+BuildRequires:	libxt-devel
+Buildrequires:	openssl-devel
+BuildRequires:	fontconfig-devel
 BuildRequires:	openssl-devel
-BuildRequires:	libncursesw-devel
+BuildRequires:	zlib-devel
 BuildRequires:	gmp-devel
+BuildRequires:	unixODBC-devel
 BuildRequires:	java-rpmbuild
 URL:		http://www.swi-prolog.org/
 Source0:	http://www.swi-prolog.org/download/stable/src/pl-%{version}.tar.gz
 Patch0:		pl-5.6.63-format-string.patch
+Patch1:		pl-5.10.2-link.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Obsoletes:	swi-pl
 Provides:	swi-pl
@@ -56,6 +57,7 @@ other interactive and dynamically typed languages.
 %prep
 %setup -n pl-%{version} -q
 %patch0 -p1 -b .format-string
+%patch1 -p0 -b .link
 
 %build
 %{?__cputoolize: %{__cputoolize} -c src} 
