@@ -61,7 +61,7 @@ other interactive and dynamically typed languages.
 
 %build
 %{?__cputoolize: %{__cputoolize} -c src} 
-%configure2_5x --with-world
+%configure2_5x --with-world --enable-shared
 %make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
 #make check
 pushd packages
@@ -72,9 +72,10 @@ popd
 
 %install
 rm -rf %{buildroot}
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/lib/%{_target_cpu}-%{_target_os}
 %makeinstall_std
 pushd packages
-%makeinstall PLBASE=%{buildroot}%{_libdir}/swipl-%{version} LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
+%makeinstall PLBASE=%{buildroot}%{_libdir}/swipl-%{version}
 %make html-install PLBASE=%{buildroot}%{_libdir}/swipl-%{version}
 popd
 
