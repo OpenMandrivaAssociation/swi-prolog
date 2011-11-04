@@ -2,8 +2,8 @@
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	5.10.2
-Release:	%mkrel 3
+Version:	5.10.5
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Development/Other
 BuildRequires:	ncursesw-devel
@@ -25,9 +25,11 @@ URL:		http://www.swi-prolog.org/
 Source0:	http://www.swi-prolog.org/download/stable/src/pl-%{version}.tar.gz
 Patch0:		pl-5.6.63-format-string.patch
 Patch1:		pl-5.10.2-link.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Patch2:		pl-5.10.5-32bit_build_fix.diff
+Patch3:		pl-5.10.5-CVE-2011-2896.diff
+Provides:	swi-pl = %{version}-%{release}
 Obsoletes:	swi-pl
-Provides:	swi-pl
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Edinburgh-style Prolog compiler including modules, autoload, libraries,
@@ -38,7 +40,7 @@ interface, very fast compiler.
 Group:		Development/Java
 Summary:	Java interface for %{name}
 Requires:	java >= 1.6.0
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} >= %{version}-%{release}
 
 %description jpl
 JPL is a dynamic, bi-directional interface between %{name} and Java
@@ -48,7 +50,7 @@ API (Prolog-calls-Java).
 %package xpce
 Group:		Development/Other
 Summary:	%{name} native GUI library
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} >= %{version}-%{release}
 
 %description xpce
 XPCE is a toolkit for developing graphical applications in Prolog and
@@ -57,7 +59,9 @@ other interactive and dynamically typed languages.
 %prep
 %setup -n pl-%{version} -q
 %patch0 -p1 -b .format-string
-%patch1 -p0 -b .link
+%patch1 -p1 -b .link
+%patch2 -p1 -b .32bit_build_fix
+%patch3 -p0 -b .CVE-2011-2896
 
 %build
 %{?__cputoolize: %{__cputoolize} -c src} 
@@ -67,7 +71,7 @@ other interactive and dynamically typed languages.
 pushd packages
 export PATH=$PATH:%{_builddir}/pl-%{version}/src
 %configure2_5x
-%make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC" LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/ 
+%make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC" LD_LIBRARY_PATH=%{_builddir}/pl-%{version}/lib/%{_arch}-linux/
 popd
 
 %install
@@ -86,12 +90,11 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,0755)
-%doc PORTING README VERSION
+%doc README VERSION
 %{_bindir}/swipl*
 %{_libdir}/swipl-%{version}
 %{_mandir}/*/swipl*
 %{_libdir}/pkgconfig/swipl.pc
-%exclude %{_libdir}/swipl-%{version}/doc/packages/examples/jpl
 %exclude %{_libdir}/swipl-%{version}/doc/packages/jpl
 %exclude %{_libdir}/swipl-%{version}/lib/*/libjpl.so
 %exclude %{_libdir}/swipl-%{version}/lib/jpl.jar
@@ -99,11 +102,9 @@ rm -rf %{buildroot}
 %exclude %{_libdir}/swipl-%{version}/doc/Manual/*xpce.html
 %exclude %{_libdir}/swipl-%{version}/xpce*
 
-
 %files jpl
 %defattr(-,root,root,0755)
 %doc packages/jpl/README.html
-%{_libdir}/swipl-%{version}/doc/packages/examples/jpl
 %{_libdir}/swipl-%{version}/doc/packages/jpl
 %{_libdir}/swipl-%{version}/lib/*/libjpl.so
 %{_libdir}/swipl-%{version}/lib/jpl.jar
