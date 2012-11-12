@@ -1,0 +1,36 @@
+diff -Naur pl-5.10.5/packages/clib/Makefile.in pl-5.10.5.oden/packages/clib/Makefile.in
+--- pl-5.10.5/packages/clib/Makefile.in	2011-06-23 10:35:13.000000000 +0200
++++ pl-5.10.5.oden/packages/clib/Makefile.in	2011-11-03 11:53:50.015343380 +0100
+@@ -58,7 +58,7 @@
+ mime.@SO@:	$(MIMEOBJ) $(MIMELIBS)
+ 		$(LD) $(LDSOFLAGS) -o $@ $(MIMEOBJ) $(MIMELIBS)
+ time.@SO@:	$(TIMEOBJ)
+-		$(LD) $(LDSOFLAGS) -o $@ $(TIMEOBJ) $(LIBS)
++		$(LD) $(LDSOFLAGS) -o $@ $(TIMEOBJ) $(LIBS) -lm
+ files.@SO@:	$(FILESOBJ)
+ 		$(LD) $(LDSOFLAGS) -o $@ $(FILESOBJ) $(LIBS)
+ rlimit.@SO@:	$(RLIMITOBJ)
+diff -Naur pl-5.10.5/packages/xpce/pl/src/Makefile pl-5.10.5.oden/packages/xpce/pl/src/Makefile
+--- pl-5.10.5/packages/xpce/pl/src/Makefile	2011-08-18 22:48:57.000000000 +0200
++++ pl-5.10.5.oden/packages/xpce/pl/src/Makefile	2011-11-03 11:53:13.712907073 +0100
+@@ -121,7 +121,7 @@
+ 		fi; \
+ 		export LD_RUN_PATH; \
+ 		$(PLLD) -shared $(LDFLAGS) $(SOITF) $(SOEXTR) -L$(LIBDIR) \
+-		-lXPCE $(GCCLIB) -L$(XLIB) $(XLIBS) $(NETLIBS) -o $(XPCESO);
++		-lXPCE $(GCCLIB) -L$(XLIB) $(XLIBS) $(NETLIBS) -o $(XPCESO) -lm -lfontconfig;
+ 
+ ################################################################$
+ # QLF generation
+diff -Naur pl-5.10.5/packages/xpce/src/Makefile.mak pl-5.10.5.oden/packages/xpce/src/Makefile.mak
+--- pl-5.10.5/packages/xpce/src/Makefile.mak	2011-08-18 22:48:57.000000000 +0200
++++ pl-5.10.5.oden/packages/xpce/src/Makefile.mak	2011-11-03 11:53:13.704906826 +0100
+@@ -293,7 +293,7 @@
+ 
+ $(PL2XPCE).dll:	prepare $(PLOBJ)
+ 		@echo Linking $@ ...
+-		@$(LD) $(LDFLAGS) /out:$@ /dll $(PLOBJ) $(LIBS) $(XLIBS)
++		@$(LD) $(LDFLAGS) /out:$@ /dll $(PLOBJ) $(LIBS) $(XLIBS) -lm -lfontconfig
+ 
+ ################################################################
+ # Stand-alone toplevel (xpce.exe)
