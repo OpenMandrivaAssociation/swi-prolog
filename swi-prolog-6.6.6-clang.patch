@@ -1,0 +1,11 @@
+--- pl-6.6.6/src/os/pl-stream.c.orig	2014-12-31 10:03:34.157844036 +0000
++++ pl-6.6.6/src/os/pl-stream.c	2014-12-31 10:03:48.964435945 +0000
+@@ -117,7 +117,7 @@
+ #ifdef O_PLMT
+ #define SLOCK(s)    if ( s->mutex ) recursiveMutexLock(s->mutex)
+ #define SUNLOCK(s)  if ( s->mutex ) recursiveMutexUnlock(s->mutex)
+-inline int
++int
+ STRYLOCK(IOSTREAM *s)
+ { if ( s->mutex &&
+        recursiveMutexTryLock(s->mutex) == EBUSY )
