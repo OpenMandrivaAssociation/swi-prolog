@@ -23,7 +23,7 @@ BuildRequires:	fontconfig-devel
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	gmp-devel
 BuildRequires:	unixODBC-devel
-BuildRequires:	java-rpmbuild
+BuildRequires:	jpackage-utils
 URL:		http://www.swi-prolog.org/
 Source0:	http://www.swi-prolog.org/download/stable/src/pl-%{version}.tar.gz
 Patch0:		pl-5.6.63-format-string.patch
@@ -65,6 +65,8 @@ other interactive and dynamically typed languages.
 %patch3 -p0 -b .CVE-2011-2896
 
 %build
+export CC=gcc
+export CXX=g++
 %{?__cputoolize: %{__cputoolize} -c src} 
 %configure --with-world --enable-shared
 %make COFLAGS="%{optflags} -fno-strict-aliasing -fPIC"
