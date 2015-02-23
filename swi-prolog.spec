@@ -1,4 +1,5 @@
-%define __noautoreq '/usr/bin/../swipl.sh\\|/usr/bin/pl\\|/usr/bin/swipl'
+%define __noautoreq '/usr/bin/../swipl.sh\\|/usr/bin/swipl\\|/usr/bin/pl'
+%define __noautoreqfiles %{_bindir}/../swipl.sh %{_bindir}/swipl %{_libdir}/swipl-%{version}/doc
 
 %define _disable_ld_no_undefined 1
 
