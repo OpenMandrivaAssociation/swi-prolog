@@ -1,14 +1,11 @@
-%if %{_use_internal_dependency_generator}
-%define __noautoreq '/usr/bin/../swipl.sh|/usr/bin/pl'
-%else
-%define _requires_exceptions /usr/bin/../swipl.sh\\|/usr/bin/pl
-%endif
+%define __noautoreq '/usr/bin/../swipl.sh\\|/usr/bin/pl\\|/usr/bin/swipl'
+
 %define _disable_ld_no_undefined 1
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
 Version:	6.6.6
-Release:        1
+Release:	2
 License:	LGPLv2+
 Group:		Development/Other
 Requires:	%{name}-nox
