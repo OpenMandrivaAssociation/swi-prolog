@@ -5,8 +5,8 @@
 
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
-Version:	6.6.6
-Release:	4
+Version:	7.2.3
+Release:	1
 License:	LGPLv2+
 Group:		Development/Other
 Requires:	%{name}-nox
@@ -37,10 +37,10 @@ BuildRequires:	pkgconfig(ncursesw)
 BuildRequires:	gmp-devel
 Recommends:	%{name}-doc
 URL:		http://www.swi-prolog.org/
-Source0:	http://www.swi-prolog.org/download/stable/src/pl-%{version}.tar.gz
+Source0:	http://www.swi-prolog.org/download/stable/src/swipl-%{version}.tar.gz
 Source100:	swi-prolog.rpmlintrc
-Patch0:		pl-%{version}-xpce_package-format_string.patch
-Patch1:		pl-%{version}-jpl_package-fix_configure.patch
+Patch0:		pl-6.6.6-xpce_package-format_string.patch
+Patch1:		pl-6.6.6-jpl_package-fix_configure.patch
 Patch2:		swi-prolog-6.6.6-clang.patch
 
 %description nox
@@ -87,7 +87,7 @@ Requires:	%{name}-nox = %{version}-%{release}
 Documentation for SWI-Prolog.
 
 %prep
-%setup -n pl-%{version} -q
+%setup -n swipl-%{version} -q
 %apply_patches
 
 %build
