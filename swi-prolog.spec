@@ -6,7 +6,7 @@
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
 Version:	7.2.3
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Development/Other
 Requires:	%{name}-nox
@@ -21,7 +21,7 @@ interface, very fast compiler.
 %package nox
 Group:		Development/Other
 Summary:	SWI-Prolog without GUI components
-BuildRequires:	libarchive-devel
+BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel
 BuildRequires:	jpeg-devel
