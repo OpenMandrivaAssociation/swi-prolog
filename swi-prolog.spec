@@ -88,7 +88,7 @@ Documentation for SWI-Prolog.
 
 %prep
 %setup -n swipl-%{version} -q
-%apply_patches
+%autopatch -p1
 
 %build
 %configure --enable-shared
