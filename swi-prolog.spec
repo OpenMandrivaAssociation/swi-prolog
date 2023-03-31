@@ -6,7 +6,7 @@
 Summary:	Prolog interpreter and compiler
 Name:		swi-prolog
 Version:	8.2.3
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Development/Other
 Requires:	%{name}-nox
