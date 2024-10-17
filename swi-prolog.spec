@@ -37,7 +37,7 @@ BuildRequires:	pkgconfig(ncursesw)
 BuildRequires:	pkgconfig(gmp)
 BuildRequires:	jre-current
 Recommends:	%{name}-doc
-URL:		http://www.swi-prolog.org/
+URL:		https://www.swi-prolog.org/
 Source0:	http://www.swi-prolog.org/download/stable/src/swipl-%{version}.tar.gz
 Source100:	swi-prolog.rpmlintrc
 Patch0:		pl-6.6.6-xpce_package-format_string.patch
